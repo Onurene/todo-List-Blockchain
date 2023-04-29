@@ -44,14 +44,14 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405260008054600160a060020a0319163317905534801561002257600080fd5b506101eb806100326000396000f3fe6080604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663445df0ac811461005b5780638da5cb5b14610082578063fdacd576146100c0575b600080fd5b34801561006757600080fd5b506100706100ec565b60408051918252519081900360200190f35b34801561008e57600080fd5b506100976100f2565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b3480156100cc57600080fd5b506100ea600480360360208110156100e357600080fd5b503561010e565b005b60015481565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60005473ffffffffffffffffffffffffffffffffffffffff1633146101ba57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152603360248201527f546869732066756e6374696f6e206973207265737472696374656420746f207460448201527f686520636f6e74726163742773206f776e657200000000000000000000000000606482015290519081900360840190fd5b60015556fea165627a7a7230582027aa051530f1ff1d53b7c47e8202d8851ea0b770062cadd40ff013445bc4ee650029",
-  "deployedBytecode": "0x6080604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663445df0ac811461005b5780638da5cb5b14610082578063fdacd576146100c0575b600080fd5b34801561006757600080fd5b506100706100ec565b60408051918252519081900360200190f35b34801561008e57600080fd5b506100976100f2565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b3480156100cc57600080fd5b506100ea600480360360208110156100e357600080fd5b503561010e565b005b60015481565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60005473ffffffffffffffffffffffffffffffffffffffff1633146101ba57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152603360248201527f546869732066756e6374696f6e206973207265737472696374656420746f207460448201527f686520636f6e74726163742773206f776e657200000000000000000000000000606482015290519081900360840190fd5b60015556fea165627a7a7230582027aa051530f1ff1d53b7c47e8202d8851ea0b770062cadd40ff013445bc4ee650029",
+  "bytecode": "0x608060405260008054600160a060020a0319163317905534801561002257600080fd5b506101eb806100326000396000f3fe6080604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663445df0ac811461005b5780638da5cb5b14610082578063fdacd576146100c0575b600080fd5b34801561006757600080fd5b506100706100ec565b60408051918252519081900360200190f35b34801561008e57600080fd5b506100976100f2565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b3480156100cc57600080fd5b506100ea600480360360208110156100e357600080fd5b503561010e565b005b60015481565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60005473ffffffffffffffffffffffffffffffffffffffff1633146101ba57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152603360248201527f546869732066756e6374696f6e206973207265737472696374656420746f207460448201527f686520636f6e74726163742773206f776e657200000000000000000000000000606482015290519081900360840190fd5b60015556fea165627a7a7230582096826812ed4acb2a841cc3a454e8b3d04ea4451f86c6ce7dff8eac08b23435da0029",
+  "deployedBytecode": "0x6080604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663445df0ac811461005b5780638da5cb5b14610082578063fdacd576146100c0575b600080fd5b34801561006757600080fd5b506100706100ec565b60408051918252519081900360200190f35b34801561008e57600080fd5b506100976100f2565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b3480156100cc57600080fd5b506100ea600480360360208110156100e357600080fd5b503561010e565b005b60015481565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60005473ffffffffffffffffffffffffffffffffffffffff1633146101ba57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152603360248201527f546869732066756e6374696f6e206973207265737472696374656420746f207460448201527f686520636f6e74726163742773206f776e657200000000000000000000000000606482015290519081900360840190fd5b60015556fea165627a7a7230582096826812ed4acb2a841cc3a454e8b3d04ea4451f86c6ce7dff8eac08b23435da0029",
   "sourceMap": "69:367:0:-;;;94:33;;;-1:-1:-1;;;;;;94:33:0;117:10;94:33;;;69:367;5:2:-1;;;;30:1;27;20:12;5:2;69:367:0;;;;;;;",
   "deployedSourceMap": "69:367:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;132:36;;8:9:-1;5:2;;;30:1;27;20:12;5:2;132:36:0;;;;;;;;;;;;;;;;;;;;94:33;;8:9:-1;5:2;;;30:1;27;20:12;5:2;94:33:0;;;;;;;;;;;;;;;;;;;;;;;328:105;;8:9:-1;5:2;;;30:1;27;20:12;5:2;328:105:0;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;328:105:0;;;;;132:36;;;;:::o;94:33::-;;;;;;:::o;328:105::-;234:5;;;;220:10;:19;204:104;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;391:24;:36;328:105::o",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract Migrations {\r\n  address public owner = msg.sender;\r\n  uint public last_completed_migration;\r\n\r\n  modifier restricted() {\r\n    require(\r\n      msg.sender == owner,\r\n      \"This function is restricted to the contract's owner\"\r\n    );\r\n    _;\r\n  }\r\n\r\n  function setCompleted(uint completed) public restricted {\r\n    last_completed_migration = completed;\r\n  }\r\n}\r\n",
-  "sourcePath": "C:/Users/16575/Documents/Sem2/AdvBlockchain/Final Project/Ethereum-Todo-List-/contracts/Migrations.sol",
+  "sourcePath": "C:/Users/16575/Documents/Sem2/AdvBlockchain/Final Project/todo-List-Blockchain/contracts/Migrations.sol",
   "ast": {
-    "absolutePath": "/C/Users/16575/Documents/Sem2/AdvBlockchain/Final Project/Ethereum-Todo-List-/contracts/Migrations.sol",
+    "absolutePath": "/C/Users/16575/Documents/Sem2/AdvBlockchain/Final Project/todo-List-Blockchain/contracts/Migrations.sol",
     "exportedSymbols": {
       "Migrations": [
         32
@@ -119,7 +119,7 @@
                 "name": "msg",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 143,
+                "referencedDeclaration": 552,
                 "src": "117:3:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_magic_message",
@@ -197,7 +197,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 143,
+                            "referencedDeclaration": 552,
                             "src": "220:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -273,10 +273,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        146,
-                        147
+                        555,
+                        556
                       ],
-                      "referencedDeclaration": 147,
+                      "referencedDeclaration": 556,
                       "src": "204:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -455,7 +455,7 @@
     "src": "33:405:0"
   },
   "legacyAST": {
-    "absolutePath": "/C/Users/16575/Documents/Sem2/AdvBlockchain/Final Project/Ethereum-Todo-List-/contracts/Migrations.sol",
+    "absolutePath": "/C/Users/16575/Documents/Sem2/AdvBlockchain/Final Project/todo-List-Blockchain/contracts/Migrations.sol",
     "exportedSymbols": {
       "Migrations": [
         32
@@ -523,7 +523,7 @@
                 "name": "msg",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 143,
+                "referencedDeclaration": 552,
                 "src": "117:3:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_magic_message",
@@ -601,7 +601,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 143,
+                            "referencedDeclaration": 552,
                             "src": "220:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -677,10 +677,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        146,
-                        147
+                        555,
+                        556
                       ],
-                      "referencedDeclaration": 147,
+                      "referencedDeclaration": 556,
                       "src": "204:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -864,7 +864,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.1",
-  "updatedAt": "2023-04-29T07:02:17.242Z",
+  "updatedAt": "2023-04-29T18:59:29.076Z",
   "devdoc": {
     "methods": {}
   },

@@ -74,21 +74,43 @@ App = {
     // Load the total task count from the blockchain
     const taskCount = await App.todoList.taskCount()
     const $taskTemplate = $('.taskTemplate')
-    const $sorttaskTemplate = $('.sorttaskTemplate')
+    const $sortedTaskList = $('#sortedTaskList')
+    const $sortContent = $('.sortContent')
 
     const $taskList = $('#taskList')
     const $completedTaskList = $('#completedTaskList')
     $taskList.empty()
     $completedTaskList.empty()
-   //await App.todoList.getTasks()
+    $sortedTaskList.empty()
     
-    // Render out each task with a new task template
-    for (var i = 1; i <= taskCount; i++) {
-      // Fetch the task data from the blockchain
-      const task = await App.todoList.tasks(i)
-      const taskId = task[0].toNumber()
+   var dict = {}
+
+   for (var i = 1; i <= taskCount; i++) {
+    // Fetch the task data from the blockchain
+    const task = await App.todoList.tasks(i)
+    const taskId = task[0].toNumber()
+    const taskPriority =parseInt(task[4],10)
+
+    if (taskPriority in dict)
+      dict[taskPriority].push(taskId)
+    else
+    dict[taskPriority] = [taskId]
+   }
+   console.log(dict)
+
+
+
+for(var i=3;i>=1;i--){
+  if(dict[i]){
+for(var j=0;j<dict[i].length;j++){
+  console.log(" sorted tasks ids", dict[i][j])
+  const task = await App.todoList.tasks(dict[i][j])
+  console.log(" sorted tasks ids", task[1])
+  const taskId = task[0].toNumber()
       const taskContent = task[1]
       const taskCompleted = task[2]
+      const taskIsDeleted = task[3]
+      const taskPriority =task[4]
 
       /*
       console.log(task)
@@ -116,20 +138,6 @@ App = {
                       .on('click', App.editTask); // add event listener
 
       
-                      const sorttask = await App.todoList.sortedTasks(i)
-                      const sorttaskId = sorttask[0].toNumber()
-                      const sorttaskContent = sorttask[1]
-                      const sorttaskCompleted = sorttask[2]
-                
-
-      const $sortedTaskTemplate = $sorttaskTemplate.clone()
-      $sortedTaskTemplate.find('.content').html(sorttaskContent)
-      $sortedTaskTemplate.find('input')
-                      .prop('name', sorttaskId)
-                      .prop('checked', sorttaskCompleted)
-                      .on('click', App.getTasks)
-
-      
       
 
       // Put the task in the correct list
@@ -139,25 +147,94 @@ App = {
         $('#taskList').append($newTaskTemplate)
       }
 
-      if (task[3]) {
+      if (taskIsDeleted) {
         window.alert(5 + 6);
         $newTaskTemplate.find('.deleteButton').remove()
        // $newTaskTemplate.find('.content').addClass('deleted')
       }
-      $sortedTaskTemplate.find('.sort-button')
+      
+      // Show the task
+      $newTaskTemplate.show()
+      
+   
+}}
+}
+},
+
+/*
+    // Render out each task with a new task template
+    for (var i = 1; i <= taskCount; i++) {
+      // Fetch the task data from the blockchain
+      const task = await App.todoList.tasks(i)
+      const taskId = task[0].toNumber()
+      const taskContent = task[1]
+      const taskCompleted = task[2]
+      const taskIsDeleted = task[3]
+      const taskPriority =task[4]
+
+      /*
+      console.log(task)
+      console.log('taskId',taskId)
+      console.log('taskContent',taskContent)
+      console.log('taskCompleted',taskCompleted)
+      console.log('taskDeleted',task[3])
+      console.log('priority',task[4].words[0])
+      
+      // Create the html for the task
+      const $newTaskTemplate = $taskTemplate.clone()
+      $newTaskTemplate.find('.content').html(taskContent)
+      $newTaskTemplate.find('input')
+                      .prop('name', taskId)
+                      .prop('checked', taskCompleted)
+                      .on('click', App.toggleCompleted)
+                      
+      $newTaskTemplate.find('.delete-button')
       .prop('name', taskId)
-                  .on('click', App.getTasks); // add event listener
-        
-      $('#sortedTaskList').append($sortedTaskTemplate)
+      .on('click', App.deleteTask)
+      
+      
+        $newTaskTemplate.find('.edit-button')
+        .prop('name', taskId)
+                      .on('click', App.editTask); // add event listener
+
+      
+      $newTaskTemplate.find('.sort-button')
+      .prop('name', taskId)
+      .on('click', App.deleteTask)
+                      const sorttask = await App.todoList.sortedTasks(i)
+                      const sorttaskId = sorttask[0].toNumber()
+                      const sorttaskContent = sorttask[1]
+                      const sorttaskCompleted = sorttask[2]
+                
+      const $sortContentTemplate = $sortContent.clone()
+      $sortContentTemplate.find('.sort-button')
+                          .on('click',App.getTasks)
+      
+      $('#sortedTaskList').append($sortContentTemplate)
+      
+
+      // Put the task in the correct list
+      if (taskCompleted) {
+        $('#completedTaskList').append($newTaskTemplate)
+      } else {
+        $('#taskList').append($newTaskTemplate)
+      }
+
+      if (taskIsDeleted) {
+        window.alert(5 + 6);
+        $newTaskTemplate.find('.deleteButton').remove()
+       // $newTaskTemplate.find('.content').addClass('deleted')
+      }
+      
       // Show the task
       $newTaskTemplate.show()
       console.log("Hello")
-      $sortedTaskTemplate.show()
+      $sortContentTemplate.show()
       console.log("bye")
 
     }
   },
-
+*/
  createTask: async () => {
     App.setLoading(true)
     const content = $('#newTask').val()
