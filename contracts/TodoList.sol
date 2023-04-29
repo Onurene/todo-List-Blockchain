@@ -11,18 +11,9 @@ contract TodoList {
     uint priority;
   }
 
-  struct SortedTask {
-    uint id;
-    string content;
-    bool completed;
-    bool deleted;
-    uint priority;
-  }
-
   
 
   mapping(uint => Task) public tasks;
-  mapping(uint => SortedTask) public sortedTasks;
 
   event TaskCreated(
     uint id,
@@ -49,14 +40,6 @@ contract TodoList {
     bool deleted,
     uint priority
 
-  );
-
-  event sortedTasksCreated(
-    uint id,
-    string content,
-    bool completed,
-    bool deleted,
-    uint priority
   );
 
   constructor() public {
