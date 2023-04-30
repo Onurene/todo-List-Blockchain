@@ -69,21 +69,20 @@ App = {
     App.setLoading(false)
   },
 
-  
+
   renderTasks: async () => {
     // Load the total task count from the blockchain
     const taskCount = await App.todoList.taskCount()
+    
     const $taskTemplate = $('.taskTemplate')
-    const $sortedTaskList = $('#sortedTaskList')
-    const $sortContent = $('.sortContent')
 
     const $taskList = $('#taskList')
     const $completedTaskList = $('#completedTaskList')
     $taskList.empty()
     $completedTaskList.empty()
-    $sortedTaskList.empty()
-    
+
    let dict = {}
+
 
    for (var i = 1; i <= taskCount; i++) {
     // Fetch the task data from the blockchain
@@ -96,81 +95,56 @@ App = {
     else
     dict[taskPriority] = [taskId]
    }
-   console.log(dict)
-
 
 
   for(var i=3;i>=1;i--){
     if(dict[i]){
   for(var j=0;j<dict[i].length;j++){
-    console.log(" sorted tasks ids", dict[i][j])
     const task = await App.todoList.tasks(dict[i][j])
-    console.log(" sorted tasks ids", task[1])
     const taskId = task[0].toNumber()
-        const taskContent = task[1]
-        const taskCompleted = task[2]
-        const taskIsDeleted = task[3]
-        const taskPriority =task[4]
+    const taskContent = task[1]
+    const taskCompleted = task[2]
+    const taskIsDeleted = task[3]
+    const taskPriority =task[4]
+    const user = task[5]
+     
+    // Create the html for the task
+    const $newTaskTemplate = $taskTemplate.clone()
+    $newTaskTemplate.find('.content').html("Task title: " + taskContent+" " + "assigned to: " +user)
+    $newTaskTemplate.find('input')
+                    .prop('name', taskId)
+                    .prop('checked', taskCompleted)
+                    .on('click', App.toggleCompleted)
+                    
+    $newTaskTemplate.find('.delete-button')
+    .prop('name', taskId)
+    .on('click', App.deleteTask)
+      
+      
+    $newTaskTemplate.find('.edit-button')
+    .prop('name', taskId)
+                  .on('click', App.editTask); 
 
-      /*
-      console.log(task)
-      console.log('taskId',taskId)
-      console.log('taskContent',taskContent)
-      console.log('taskCompleted',taskCompleted)
-      console.log('taskDeleted',task[3])
-      console.log('priority',task[4].words[0])
-      */
-      // Create the html for the task
-      const $newTaskTemplate = $taskTemplate.clone()
-      $newTaskTemplate.find('.content').html(taskContent)
-      $newTaskTemplate.find('input')
-                      .prop('name', taskId)
-                      .prop('checked', taskCompleted)
-                      .on('click', App.toggleCompleted)
-                      
-      $newTaskTemplate.find('.delete-button')
-      .prop('name', taskId)
-      .on('click', App.deleteTask)
-      
-      
-        $newTaskTemplate.find('.edit-button')
-        .prop('name', taskId)
-                      .on('click', App.editTask); // add event listener
+    // Put the task in the correct list
+    if (taskCompleted) {
+      $('#completedTaskList').append($newTaskTemplate)
+    } else {
+      $('#taskList').append($newTaskTemplate)
+    }
 
+    if (taskIsDeleted) {
+      window.alert(5 + 6);
+      $newTaskTemplate.find('.deleteButton').remove()
+      // $newTaskTemplate.find('.content').addClass('deleted')
+    }
       
-      
-
-      // Put the task in the correct list
-      if (taskCompleted) {
-        $('#completedTaskList').append($newTaskTemplate)
-      } else {
-        $('#taskList').append($newTaskTemplate)
-      }
-
-      if (taskIsDeleted) {
-        window.alert(5 + 6);
-        $newTaskTemplate.find('.deleteButton').remove()
-       // $newTaskTemplate.find('.content').addClass('deleted')
-      }
-      
-      // Show the task
-      $newTaskTemplate.show()
-      
-   
-}}
+    // Show the task
+    $newTaskTemplate.show()
+  }
+}
 }
 },
-
- createTask: async () => {
-    App.setLoading(true)
-    const content = $('#newTask').val()
-    const priority = $('#priorityTask').val()
-    console.log('CREATE PRIORITY',parseInt(priority,10),typeof(parseInt(priority,10)))
-    await App.todoList.createTask(content, parseInt(priority,10),{from: App.account})
-    // refresh the page to refetch the tasks
-    window.location.reload()
-  },
-
+    
   toggleCompleted: async (e) => {
     App.setLoading(true)
     const taskId = e.target.name
@@ -183,16 +157,13 @@ App = {
     const taskId = e.target.name
     const newContent = prompt('Enter new task content:');
     const newPriority = prompt('Enter new task priority:');
-    console.log('new content',newContent);
-    console.log('taskId',taskId);
-    console.log('newpriority',newPriority)
+    const user = prompt('Enter new user :');
     
-    await App.todoList.editTask(taskId, newContent,parseInt(newPriority,10) ,{from: App.account});
+    await App.todoList.editTask(taskId, newContent,parseInt(newPriority,10) ,user,{from: App.account});
     window.location.reload()
 
   },
   
-
   setLoading: (boolean) => {
     App.loading = boolean
     const loader = $('#loader')
@@ -213,14 +184,39 @@ App = {
     window.location.reload()
   },
 
-  getTasks: async(e) =>{
+  createTask: async () => {
     App.setLoading(true)
-    //const taskId = e.target.name
-    console.log("in gettasks")
-    await App.todoList.getTasks({from: App.account})
+    const content = $('#newTask').val()
+    const priority = $('#priorityTask').val()
+    const user = $('#userTask').val()
+    await App.todoList.createTask(content, parseInt(priority,10),user,{from: App.account})
+    // refresh the page to refetch the tasks
     window.location.reload()
+  },
+
+  filterByUser: async() =>{
+    const taskCount = await App.todoList.taskCount()
+    App.setLoading(true)
+    const user = $('#username').val()
+    
+    await App.todoList.filterByUser(user,{from: App.account})
+    const $userTemplate=$('.userTemplate')
+    const $userList = $('#userList')
+    $userList.empty()
+
+    // Create the html for the task
+    for(var i=0;i<=taskCount;i++)
+    {
+      const data = await App.todoList.contentData(i);
+      console.log(data)
+      if (data!=""){
+        const $userTaskTemplate = $userTemplate.clone()
+      $userTaskTemplate.find('.usercontent').html("Task title: " + data +" " + "assigned to: " +user)  
+      $('#userList').append($userTaskTemplate)
+      $userTaskTemplate.show()
+      }   
+    }
   }
- 
 }
 
 $(() => {
