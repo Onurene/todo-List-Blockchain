@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair Display">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ethereum Todo List</title>
+  <link rel="icon"  href="icons8-test-48.png">
 
   <style>
     main {
@@ -17,7 +19,7 @@
     }
 
     form {
-      width: 350px;
+      width: 380px;
       margin-bottom: 10px;
     }
 
@@ -26,14 +28,140 @@
     }
 
     #completedTaskList .content {
-      color: grey;
+      color: black;
       text-decoration: line-through;
     }
-  </style>
+    .container-fluid h1{
+      color: gray;
+      font-size: 45px;
+      
+
+    }
+    body{
+      background-color: black;
+      font-family: "Playfair Display",sans-serif;
+      text-align: center;
+    }
+    .taskTemplate{
+      font-size: 35px;
+      margin-right: 40px;
+      
+    }
+    .form-control{
+      color: black;
+    }
+    #content,#usercontent{
+      max-width: 300px;
+      margin: auto;
+      
+    }
+    
+    
+    .edit-button{
+      padding: 5px 8px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: black;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 3px darkgray;
+      width: 70px; 
+    }
+    .delete-button{
+      padding: 5px 8px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: black;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 3px darkgray;
+      width: 70px; 
+    }
+    .delete-button,.edit-button:hover {
+      background-color: darkgray
+    }
+    .delete-button,.edit-button:active {
+      background-color: black;
+      box-shadow: 0 5px darkgray;
+      transform: translateY(4px);
+    }
+    .btn-danger:hover{
+      background-color: darkgray;
+    }
+    #usercontent{
+     color: white;
+ 
+    }
+    .list-unstyled{
+      color: white;
+    }
+    
+    input[type=text]{
+      width: 100%;
+      padding: 5px 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border-radius: 10px;
+      color: black;
+      background-color: lightgray;
+    }
+    .checkbox{
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+.taskTemplate input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+
+.taskTemplate label.checkbox .edit-button {
+  margin-left: 60px;
+  margin-right: 125px;
+  margin-top: 15px;
+}
+.taskTemplate label.checkbox .delete-button {
+  margin-top: 10px;
+}
+#taskList {
+  background-color: gray;
+  width: 90%;
+  padding: 55px;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+#completedTaskList {
+  background-color: gray;
+  width: 90%;
+  padding: 55px;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+#completedTaskList input[type="checkbox"]{
+  background-color: green;
+}
+
+
+ 
+ </style>
 </head>
 
 <body>
   <div class="container-fluid">
+    <h1>to do list:</h1>
     <div class="row">
       <main role="main" class="col-lg-12 d-flex justify-content-center">
         <div id="loader" class="text-center">
@@ -48,8 +176,8 @@
           </form>
           
           <ul id="taskList" class="list-unstyled">
-            <div class="taskTemplate" class="checkbox" style="display: none">
-              <label>
+            <div class="taskTemplate"  >
+              <label class="checkbox">
                 <input type="checkbox" />
                 <span class="content">Task content goes here...</span>
                 <button class="edit-button btn btn-sm btn-primary">Edit</button> 
@@ -61,16 +189,16 @@
           </ul>
         </div>
 
-        <div id="usercontent">
+        <div id="usercontent" >
           <form onSubmit="App.filterByUser(); return false;">
             <p>Filter tasks based on the user</p>
             <input id="username" type="text" class="form-control" placeholder="Provide username" required>            
             <input type="submit" hidden="">
           </form>
-          <ul id="userList" class="list-unstyled">
-            <div class="userTemplate" class="checkbox" style="display: none">
+          <ul id="userList" class="list-unstyled" >
+            <div class="userTemplate"  class="checkbox" >
               <label>
-                <span class="usercontent">Task content goes here...</span>
+                <span  class="usercontent"></span>
               </label>
             </div>
           </ul>
