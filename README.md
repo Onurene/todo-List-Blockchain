@@ -23,6 +23,7 @@ $ npm run dev
 ### Completing Tasks
 ### Editing Tasks
 ### Deleting Tasks
+### Assigning Tasks to the user
 ### Filtering Tasks based on the user
 ### Sorting Tasks based on priority (High:3 Medium:2 Low:1)
 
