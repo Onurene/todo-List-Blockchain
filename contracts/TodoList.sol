@@ -15,6 +15,8 @@ contract TodoList {
 
   mapping(uint => Task) public tasks;
   string[]  public contentData;
+  mapping(uint => uint) public starttime;
+  mapping(uint => uint) public endtime;
 
   event TaskCreated(
     uint id,
@@ -56,6 +58,7 @@ event userFiltered(
   function createTask(string memory _content,uint _priority, string memory _assignedTo) public {
     require(_priority >= 1 && _priority <= 3, "Invalid priority level");
     taskCount ++;
+    starttime[taskCount]=block.timestamp;
     tasks[taskCount] = Task(taskCount, _content, false,false,_priority,_assignedTo);
     emit TaskCreated(taskCount, _content, false,false,_priority,_assignedTo);
   }
@@ -90,6 +93,7 @@ event userFiltered(
   function toggleCompleted(uint _id) public {
     Task memory _task = tasks[_id];
     _task.completed = !_task.completed;
+    endtime[taskCount]=block.timestamp;
     tasks[_id] = _task;
     emit TaskCompleted(_id, _task.completed);
   } 

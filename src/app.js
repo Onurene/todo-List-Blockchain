@@ -127,7 +127,10 @@ App = {
 
     // Put the task in the correct list
     if (taskCompleted) {
-      $('#completedTaskList').append($newTaskTemplate)
+      const taskstart= await App.todoList.starttime(taskId)
+      const taskend= await App.todoList.endtime(taskId)
+      const tasktime= (taskend-taskstart)/60
+      $('#completedTaskList').html("Task Completed in:"+tasktime.toFixed(2) +" minutes").append($newTaskTemplate)
     } else {
       $('#taskList').append($newTaskTemplate)
     }
