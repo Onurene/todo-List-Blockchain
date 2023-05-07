@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair Display">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ethereum Todo List</title>
+  <link rel="icon"  href="icons8-test-48.png">
+
+  <style>
+    main {
+      margin-top: 60px;
+    }
+
+    #content {
+      display: none;
+    }
+
+    form {
+      width: 380px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-bottom: 0px;
+    }
+
+    #completedTaskList .content {
+      color: black;
+      text-decoration: line-through;
+    }
+    .container-fluid h1{
+      color: gray;
+      font-size: 45px;
+      
+
+    }
+    body{
+      background-color: black;
+      font-family: "Playfair Display",sans-serif;
+      text-align: center;
+    }
+    .taskTemplate{
+      font-size: 35px;
+      margin-right: 40px;
+      
+    }
+    .form-control{
+      color: black;
+    }
+    #content,#usercontent{
+      max-width: 300px;
+      margin: auto;
+    }
+    
+    
+    .edit-button{
+      padding: 5px 8px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: black;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 3px darkgray;
+      width: 70px; 
+    }
+    .delete-button{
+      padding: 5px 8px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: black;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 3px darkgray;
+      width: 70px; 
+    }
+    .delete-button,.edit-button:hover {
+      background-color: darkgray
+    }
+    .delete-button,.edit-button:active {
+      background-color: black;
+      box-shadow: 0 5px darkgray;
+      transform: translateY(4px);
+    }
+    .btn-danger:hover{
+      background-color: darkgray;
+    }
+    #usercontent{
+     color: white;
+ 
+    }
+    .list-unstyled{
+      color: white;
+    }
+    
+    input[type=text]{
+      width: 100%;
+      padding: 5px 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border-radius: 10px;
+      color: black;
+      background-color: lightgray;
+    }
+    .checkbox{
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+.taskTemplate input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+
+.taskTemplate label.checkbox .edit-button {
+  margin-left: 60px;
+  margin-right: 125px;
+  margin-top: 15px;
+}
+.taskTemplate label.checkbox .delete-button {
+  margin-top: 10px;
+}
+#taskList {
+  background-color: gray;
+  width: 90%;
+  padding: 55px;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+#completedTaskList {
+  background-color: gray;
+  width: 90%;
+  padding: 55px;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+#completedTaskList input[type="checkbox"]{
+  background-color: green;
+}
+
+
+ 
+ </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <h1>ToDo List</h1>
+    <div class="row">
+      <main role="main" class="col-lg-12 d-flex justify-content-center">
+        <div id="loader" class="text-center">
+          <p class="text-center">Loading...</p>
+        </div>
+        <div id="content">
+          <form onSubmit="App.createTask(); return false;">
+            <input id="newTask" type="text" class="form-control" placeholder="Add task..." required>
+            <input id="priorityTask" type="text" class="form-control" placeholder="High=3,Medium=2,Low=1,Only integers allowed" required>
+            <input id="userTask" type="text" class="form-control" placeholder="Enter user name" required>
+            <input type="submit" hidden="">
+          </form>
+          
+          <ul id="taskList" class="list-unstyled">
+            <div class="taskTemplate"  >
+              <label class="checkbox">
+                <input type="checkbox" />
+                <span class="content" style="font-size:16px;">Task content goes here...</span>
+                <button class="edit-button btn btn-sm btn-primary">Edit</button> 
+                <button class="delete-button btn btn-sm btn-danger">Delete</button>
+              </label>
+            </div>
+          </ul>
+          <ul id="completedTaskList" class="list-unstyled">
+          </ul>
+        </div>
+
+        <div id="usercontent" >
+          <form onSubmit="App.filterByUser(); return false;">
+            <p>Filter tasks based on the user</p>
+            <input id="username" type="text" class="form-control" placeholder="Provide username" required>            
+            <input type="submit" hidden="">
+          </form>
+          <ul id="userList" class="list-unstyled" >
+            <div class="userTemplate"  class="checkbox" >
+              <label>
+                <span  class="usercontent"></span>
+              </label>
+            </div>
+          </ul>
+        </div>
+      </main>
+    </div>
+  </div>
+ 
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="vendor/web3/dist/web3.min.js"></script>
+  <!-- <script src="vendor/truffle-contract/dist/truffle-contract.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@truffle/contract@4.3.5/dist/truffle-contract.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
